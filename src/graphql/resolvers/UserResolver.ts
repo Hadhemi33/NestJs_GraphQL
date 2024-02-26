@@ -13,6 +13,7 @@ import { mockUsers } from 'src/__mocks__/mockUsers';
 import { UserSetting } from '../models/UserSettings';
 import { of } from 'rxjs';
 import { mockUserSettings } from 'src/__mocks__/mockUserSettings';
+import { CreateUserInput } from '../utils/CreateUserInput';
 
 @Resolver((of) => User)
 export class UserResolver {
@@ -30,8 +31,14 @@ export class UserResolver {
     return mockUserSettings.find((setting) => setting.userId === user.id);
   }
   @Mutation((returns) => User)
-  createUser(
-    @Args('username') username: string,
-    @Args('displayName', { nullable: true }) displayName: string,
-  ) {}
+  createUser(@Args('createUserData') createUserData: CreateUserInput) {
+    const { username, displayName } = createUserData;
+    const newUser = {
+      id: ++incrementalId,
+      username,
+      displayName,
+    };
+    mockUsers.push(newUser);
+    return newUser;
+  }
 }
