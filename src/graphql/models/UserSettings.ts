@@ -1,18 +1,19 @@
 // import { PrimaryColumn, Column, Entity } from 'typeorm';
 import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { Column, Entity, PrimaryColumn } from 'typeorm';
 
-// @Entity({ name: 'user_settings' })
+@Entity({ name: 'user_settings' })
 @ObjectType()
 export class UserSetting {
-  //   @PrimaryColumn()
+  @PrimaryColumn()
   @Field((type) => Int)
   userId: number;
 
-  //   @Column({ default: false })
+  @Column({ default: false })
   @Field({ defaultValue: false })
   receiveNotifications: boolean;
 
-  //   @Column({ default: false })
+  @Column({ default: false })
   @Field({ defaultValue: false })
   receiveEmails: boolean;
 }
